@@ -52,7 +52,7 @@ window.onresize = function(){//Makes sure the canvas fits the browser window on 
 function createCLA(cvalue){ //creates a usable array of characters out of the custom text the user has typed
     customLettersArr = cvalue.split(""); //splits the custom text into an array of characters
     for(i=0;i<customLettersArr.length;i++){//makes sure the spaces are removed
-        if(customLettersArr[i] === " "){ //NOTE TO SELF: Make it so only A-Z (possibly 0-9) can be used - not special characters like ? or !
+        while(customLettersArr[i] === " "){ //NOTE TO SELF: Make it so only A-Z (possibly 0-9) can be used - not special characters like ? or !
             customLettersArr.splice(i, 1);//if it contains a space - remove it
         }
     }
@@ -429,6 +429,7 @@ function updateCanvas(){ //draw all the information on the canvas
         canvasDraw.font="180px Arial";
         canvasDraw.fillText(lettercount,(window.innerWidth / 2 + 200),window.innerHeight / 2 * 1.1); //tell him the score
         canvasDraw.fillText(livesLeft,(window.innerWidth / 2 - 400),window.innerHeight / 2 * 1.1); //tell him the score
+        //CHANGES
         /*var clXit = canvas.width / 70;
         var clX = canvas.width / 2 - customLettersArr.length * 0.5 * clXit;
         for(i=0;i<customLettersArr.length;i++){

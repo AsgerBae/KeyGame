@@ -17,6 +17,7 @@ var canvas = document.getElementById("mainCanvas"), //Declaring variable -- get 
     newRecord = false; //see if the current game has reached the highscore
 
 
+// Cookie funcions
 
 function setCookie(cname,cvalue,exdays) { //setCookie function -- used to set cookies
     var d = new Date();
@@ -34,6 +35,7 @@ function getCookie(cname) { //getCookie function -- used to check a cookie
     return "";
 }
 
+//Canvas Width and Height
 
 canvas.width = window.innerWidth; //Makes sure the canvas fits the browser window
 canvas.height = window.innerHeight;// -||-
@@ -44,6 +46,8 @@ window.onresize = function(){//Makes sure the canvas fits the browser window on 
 };
 
 
+//Custom letters
+ //Create the Array
 function createCLA(cvalue){ //creates a usable array of characters out of the custom text the user has typed
     customLettersArr = cvalue.split(""); //splits the custom text into an array of characters
     for(i=0;i<customLettersArr.length;i++){//makes sure the spaces are removed
@@ -53,11 +57,13 @@ function createCLA(cvalue){ //creates a usable array of characters out of the cu
     }
     customLetters = true; //Let the rest of the code know that you're using custom text
 }
+ //Set the Array
 if(getCookie("text") !== ""){ //if there's anything in the custom text cookie - use it
     createCLA(getCookie("text")); //create the custom array with the cookie
     clText.value = getCookie("text"); //display the cookie in the textarea
 }
 
+//Custom Letter butons
 document.getElementById("clDisable").onmousedown = function(){ //when the disable custom letters button is pushed
     if(customLetters){
         customLetters = false; //disable custom letters
@@ -71,13 +77,9 @@ document.getElementById("clButton").onmousedown = function(){ //when the submit 
     setCookie("text",clText.value,1); //make a cookie with the custom text
     createCLA(clText.value); //create/change the custom text array with the text
 };
-clText.onfocus = function(){ //when you're typing - say you're typing
-    isTyping = true;
-};
-clText.onblur = function(){ //when you're  no longer typing - say you're not typing anymore
-    isTyping = false;
-};
 
+
+//Check the score / highscore
 
 function checkScore(){ //a function to check if you've beaten your highscore
     if(!customLetters){ //don't check if you're using custom text, to prevent cheating
@@ -89,11 +91,25 @@ function checkScore(){ //a function to check if you've beaten your highscore
 }
 
 
+//see whenu user is typing
+
+clText.onfocus = function(){ //when you're typing - say you're typing
+    isTyping = true;
+};
+clText.onblur = function(){ //when you're  no longer typing - say you're not typing anymore
+    isTyping = false;
+};
+
+
+//Update Letters
 for(i=0;i<5;i++){ //make the initial 5 characters
 updateLetters(i);
 }
 function updateLetters(i){ //adds a character to the letter array at the point of i
     if(!customLetters){ //first piece of code is for normal - random mode, second is for custom mode
+        
+        //Generate Random Letters
+        
 	var m; //m is the random number spit out of the for loop
 	var k = Math.random(); //k is random - but we can't use it, we gotta make it a character between 0 and 27
 	for(j=1;j<27;j++){ //fire the code 26 times
@@ -190,6 +206,9 @@ function updateLetters(i){ //adds a character to the letter array at the point o
 		break;
 	}
     } else { //the custom mode
+        
+        //Use Custom Letters
+        
         if(!customLettersArr){ //if there is no custom text - disable custom text, fire the code again and return
             customLetters = false;
             updateLetters(i);
@@ -203,6 +222,8 @@ function updateLetters(i){ //adds a character to the letter array at the point o
     }
 }
 updateCanvas(); //run updateCanvas once, initially
+
+//Check when key is pressed
 window.onkeydown = function(event){ //when a key is pressed, check what was pressed and run some code
     var key = event.keyCode; //get the key that was typed
     if(!quit){ //if you aren't dead yet
@@ -303,6 +324,9 @@ window.onkeydown = function(event){ //when a key is pressed, check what was pres
         }
     }
 };
+
+//Update Everything
+
 function updateInterface(){//update interface, fire a bunch of functions
     if(keyPressed){ //if you actually pressed anything
         if(keyPressed === letters[0]){//and you pressed the right key
@@ -324,6 +348,9 @@ function updateInterface(){//update interface, fire a bunch of functions
         }
     }
 }
+
+//Draw everything on the canvas
+
 function updateCanvas(){ //draw all the information on the canvas
     checkScore(); //check if you have reached your highscore
     canvasDraw.clearRect(0,0,canvas.width,canvas.height); //removes everything from the canvas, for us to draw on
@@ -414,12 +441,18 @@ function updateCanvas(){ //draw all the information on the canvas
         }
     }
 }
+
+//Timer
+
 function timer(){ //run everytime the user answers correctly - needs a better name
     if(time > 300){ //if the user has above .3 seconds
         time = time * 0.97; //give him less time
     }
     endTime = new Date().getTime() + time; //say when the user needs to answer correctly by
 }
+
+//FPS
+
 setInterval(function(){ //check for updates every now and then (50 times / second)
     updateCanvas(); //update the canvas
     var a = endTime - new Date().getTime(); //get the difference between when he has to complete the tast and now

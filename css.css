@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-03-2014, 21:55:26
+    Author     : User
+*/
+body{
+    font-family: Arial, sans-serif;
+    overflow:hidden;
+    margin:0;
+    padding:0;
+}
+#mainCanvas,#tutorialCanvas{
+    z-index:-100;
+    position: absolute;
+    margin:0;
+    padding:0;
+}
+#clText{
+    top: 4px;
+    left: 4px;
+    height: 30px;
+    width: 300px;
+    position:absolute;
+    outline: none;
+    resize: none;
+    background-color: transparent;
+    border: 1px solid black;
+}
+#clButton{
+    background-color: #33EE00;
+    left:315px;
+    top: 6px;
+}
+#clButton:hover{
+    background-color: #22CC00;
+}
+#clButton:active{
+    background-color: #118800;
+}
+#clDisable{
+    background-color: #FF0000;
+    left:380px;
+    top: 6px;
+}
+#clDisable:hover{
+    background-color: #DD0000;
+}
+#clDisable:active{
+    background-color: #990000;
+}
+#clDisable,#clButton{
+    color:white;
+    font-size: 14px;
+    border: 0;
+    height: 30px;
+    width: 60px;
+    position:absolute;
+    outline: none;
+}

@@ -1,6 +1,7 @@
 window.onload=function(){
 var canvas = document.getElementById("mainCanvas"), //Declaring variable -- get the canvas
     clText = document.getElementById("clText"), //Get the textare for custom text
+    wrongSound = document.getElementById("wrongSound"), //Get the textare for custom text
     canvasDraw = canvas.getContext("2d"), //get the 2d canvas context - alowing drawing on the canvas
     quit = false, //variable used to see if the quitscreen is open
     time = 5000, //the amount of time - in milliseconds - you have per round by default
@@ -339,6 +340,8 @@ function updateInterface(){//update interface, fire a bunch of functions
             lettercount++; //add 1 to the score
         } else {
             if(!isTyping){
+                wrongSound.load();
+                wrongSound.play();
                 correctAnswer = 15;
                 livesLeft--;
                 if(livesLeft===0){
@@ -426,6 +429,17 @@ function updateCanvas(){ //draw all the information on the canvas
         canvasDraw.font="180px Arial";
         canvasDraw.fillText(lettercount,(window.innerWidth / 2 + 200),window.innerHeight / 2 * 1.1); //tell him the score
         canvasDraw.fillText(livesLeft,(window.innerWidth / 2 - 400),window.innerHeight / 2 * 1.1); //tell him the score
+        /*var clXit = canvas.width / 70;
+        var clX = canvas.width / 2 - customLettersArr.length * 0.5 * clXit;
+        for(i=0;i<customLettersArr.length;i++){
+            canvasDraw.font="40px Arial";
+            canvasDraw.fillText(customLettersArr[i],clX,window.innerHeight / 1.05); //tell him the score
+            if(i===claPoint){
+                console.log(i);
+                canvasDraw.strokeRect(clX - 0.5 * clXit,window.innerHeight / 1.05 - 40,clXit,40);
+            }
+            clX += clXit;
+        }*/
     } else { //if you're dead
         canvasDraw.font="250px Arial";
         canvasDraw.fillStyle = "#000000";
